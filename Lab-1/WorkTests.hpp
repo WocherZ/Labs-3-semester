@@ -50,8 +50,8 @@ void ArraySortsTest(int size = 10) {
     if (GreaterSortTest(new MergeSort<int>(), list)) cout << "OK" << endl;
     else cout << structName << "WRONG" << endl;
     list = save_list->Clone();
-    cout << "Shall sort: ";
-    if (GreaterSortTest(new ShallSort<int>(), list)) cout << "OK" << endl;
+    cout << "Shell sort: ";
+    if (GreaterSortTest(new ShellSort<int>(), list)) cout << "OK" << endl;
     else cout << structName << "WRONG" << endl;
     list = save_list->Clone();
 
@@ -64,8 +64,8 @@ void ArraySortsTest(int size = 10) {
     if (LessSortTest(new MergeSort<int>(), list)) cout << "OK" << endl;
     else cout << structName << "WRONG" << endl;
     list = save_list->Clone();
-    cout << "Shall sort: ";
-    if (LessSortTest(new ShallSort<int>(), list)) cout << "OK" << endl;
+    cout << "Shell sort: ";
+    if (LessSortTest(new ShellSort<int>(), list)) cout << "OK" << endl;
     else cout << structName << "WRONG" << endl;
     list = save_list->Clone();
 
@@ -90,8 +90,8 @@ void ListSortsTest(int size = 10) {
     if (GreaterSortTest(new MergeSort<int>(), list)) cout << "OK" << endl;
     else cout << structName << "WRONG" << endl;
     list = save_list->Clone();
-    cout << "Shall sort: ";
-    if (GreaterSortTest(new ShallSort<int>(), list)) cout << "OK" << endl;
+    cout << "Shell sort: ";
+    if (GreaterSortTest(new ShellSort<int>(), list)) cout << "OK" << endl;
     else cout << structName << "WRONG" << endl;
     list = save_list->Clone();
 
@@ -104,8 +104,8 @@ void ListSortsTest(int size = 10) {
     if (LessSortTest(new MergeSort<int>(), list)) cout << "OK" << endl;
     else cout << structName << "WRONG" << endl;
     list = save_list->Clone();
-    cout << "Shall sort: ";
-    if (LessSortTest(new ShallSort<int>(), list)) cout << "OK" << endl;
+    cout << "Shell sort: ";
+    if (LessSortTest(new ShellSort<int>(), list)) cout << "OK" << endl;
     else cout << structName << "WRONG" << endl;
     list = save_list->Clone();
 

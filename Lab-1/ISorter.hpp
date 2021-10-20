@@ -69,7 +69,7 @@ private:
 };
 
 template<typename T>
-class ShallSort : public ISorter<T> {
+class ShellSort : public ISorter<T> {
 public:
     Sequence<T> *Sort(Sequence<T> *list, int (*cmp)(T, T)) override {
         int n = list->GetSize();

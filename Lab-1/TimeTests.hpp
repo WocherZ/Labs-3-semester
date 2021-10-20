@@ -128,21 +128,21 @@ void TimeTest(int min_size, int max_size, int step_size, int measurements) {
                  ArrayGenerator, Greater, min_size, max_size, step_size, measurements);
     TimeTestFunc("MergeSorting", "RandomGenerator", "Array", new MergeSort<int>(),
                  ArrayGenerator, Greater, min_size, max_size, step_size, measurements);
-    TimeTestFunc("ShallSorting", "RandomGenerator", "Array", new ShallSort<int>(),
+    TimeTestFunc("ShellSorting", "RandomGenerator", "Array", new ShellSort<int>(),
                  ArrayGenerator, Greater, min_size, max_size, step_size, measurements);
 
     TimeTestFunc("ShakeSorting", "BestGenerator", "Array", new ShakeSort<int>(),
                  BestArrayGenerator, Greater, min_size, max_size, step_size, measurements);
     TimeTestFunc("MergeSorting", "BestGenerator", "Array", new MergeSort<int>(),
                  BestArrayGenerator, Greater, min_size, max_size, step_size, measurements);
-    TimeTestFunc("ShallSorting", "BestGenerator", "Array", new ShallSort<int>(),
+    TimeTestFunc("ShellSorting", "BestGenerator", "Array", new ShellSort<int>(),
                  BestArrayGenerator, Greater, min_size, max_size, step_size, measurements);
 
     TimeTestFunc("ShakeSorting", "WorstGenerator", "Array", new ShakeSort<int>(),
                  WorstArrayGenerator, Greater, min_size, max_size, step_size, measurements);
     TimeTestFunc("MergeSorting", "WorstGenerator", "Array", new MergeSort<int>(),
                  WorstArrayGenerator, Greater, min_size, max_size, step_size, measurements);
-    TimeTestFunc("ShallSorting", "WorstGenerator", "Array", new ShallSort<int>(),
+    TimeTestFunc("ShellSorting", "WorstGenerator", "Array", new ShellSort<int>(),
                  WorstArrayGenerator, Greater, min_size, max_size, step_size, measurements);
 
     // Для списка
@@ -150,21 +150,21 @@ void TimeTest(int min_size, int max_size, int step_size, int measurements) {
                  ListGenerator, Greater, min_size, max_size, step_size, measurements);
     TimeTestFunc("MergeSorting", "RandomGenerator", "List", new MergeSort<int>(),
                  ListGenerator, Greater, min_size, max_size, step_size, measurements);
-    TimeTestFunc("ShallSorting", "RandomGenerator", "List", new ShallSort<int>(),
+    TimeTestFunc("ShellSorting", "RandomGenerator", "List", new ShellSort<int>(),
                  ListGenerator, Greater, min_size, max_size, step_size, measurements);
 
     TimeTestFunc("ShakeSorting", "BestGenerator", "List", new ShakeSort<int>(),
                  BestListGenerator, Greater, min_size, max_size, step_size, measurements);
     TimeTestFunc("MergeSorting", "BestGenerator", "List", new MergeSort<int>(),
                  BestListGenerator, Greater, min_size, max_size, step_size, measurements);
-    TimeTestFunc("ShallSorting", "BestGenerator", "List", new ShallSort<int>(),
+    TimeTestFunc("ShellSorting", "BestGenerator", "List", new ShellSort<int>(),
                  BestListGenerator, Greater, min_size, max_size, step_size, measurements);
 
    TimeTestFunc("ShakeSorting", "WorstGenerator", "List", new ShakeSort<int>(),
                  WorstListGenerator, Greater, min_size, max_size, step_size, measurements);
    TimeTestFunc("MergeSorting", "WorstGenerator", "List", new MergeSort<int>(),
                  WorstListGenerator, Greater, min_size, max_size, step_size, measurements);
-   TimeTestFunc("ShallSorting", "WorstGenerator", "List", new ShallSort<int>(),
+   TimeTestFunc("ShellSorting", "WorstGenerator", "List", new ShellSort<int>(),
                  WorstListGenerator, Greater, min_size, max_size, step_size, measurements);
 
     cout << "Time tests done! You can see results in files" << endl;
