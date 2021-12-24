@@ -3,12 +3,12 @@
 
 
 template<typename T>
-int Greater(T a, T b) {
+int Greater(T a, T b) { // cmp для построения гистограммы
     return (a > b) ? 1 : (a == b) ? 0 : -1;
 }
 
 template<typename T>
-int Less(T a, T b) {
+int Less(T a, T b) {  // cmp для построения гистограммы
     return (a < b) ? 1 : (a == b) ? 0 : -1;
 }
 

@@ -1,3 +1,4 @@
+#pragma once
 #include "Histogram/Histogram.hpp"
 #include "Sequence/ArraySequence.hpp"
 #include "Paginator/Paginator.hpp"

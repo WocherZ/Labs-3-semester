@@ -18,7 +18,7 @@ private:
     TElement m_start;
 
 public:
-    Histogram(Sequence<TElement>* array , int intervals, int (*cmp)(TElement, TElement)=Greater) {
+    Histogram(Sequence<TElement>* array , int intervals, int (*cmp)(TElement, TElement)=Greater) {  // есть возможность передать cmp
         ShakeSort<TElement>().Sort(array, cmp);
 
         TElement start = array->GetFirst();
@@ -47,7 +47,7 @@ public:
         m_start = start;
     }
 
-    Histogram(Sequence<TElement>* array, double range, int (*cmp)(TElement, TElement)=Greater) {
+    Histogram(Sequence<TElement>* array, double range, int (*cmp)(TElement, TElement)=Greater) {  // есть возможность передать cmp
         ShakeSort<TElement>().Sort(array, cmp);
 
         TElement start = array->GetFirst();
@@ -74,6 +74,37 @@ public:
         m_intervals = m_dict.GetSize();
         m_range = range;
         m_start = start;
+    }
+
+    explicit Histogram(Sequence<TElement>* array, int (*cmp)(TElement, TElement)=Greater) {  // есть возможность передать cmp
+        ShakeSort<TElement>().Sort(array, cmp);
+
+        int c;
+        int rep = 0, prev = 1;
+
+        Sequence<TKey> amount;
+        Sequence<TKey> values;
+
+        for (int i = 0; i < array->GetSize(); i += prev) {
+            c = 1;
+            for (int j = i + 1; j < array->GetSize(); j++) {
+                if ( array[i] == array[j]) {
+                    c++;
+                }
+                prev = c;
+            }
+            values.Append(array[i]);
+            if ( c > 1 ) {
+                rep++;
+            }
+
+            amount.Append(c);
+        }
+
+        m_dict = Dict<TKey, TElement>(values, amount, amount.GetSize());
+        m_start = array[0];
+        m_intervals = amount.GetSize();
+        m_range = (array->GetLast() - array->GetFirst()) / m_intervals;
     }
 
     void Print() {
