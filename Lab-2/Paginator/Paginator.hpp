@@ -53,7 +53,7 @@ public:
                 if (page == 1 && length > number_symbols / 2) {
                     if (j != ' ') page++;
 
-                } else if (length >= (page -1) * number_symbols + page1_size) {
+                } else if (length >= (page - 1) * number_symbols + page1_size) {
                     if (j != ' ') page++;
 
                 } else if (page % 10 == 0 && length >= (page - 2) * number_symbols + page1_size + page10_size) {

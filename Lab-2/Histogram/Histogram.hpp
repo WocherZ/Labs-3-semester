@@ -61,7 +61,6 @@ public:
             }
             for (int i = current; i < array->GetSize(); i++) {
                 TElement element = array->Get(i);
-                cout << element << endl;
                 if (start + range * k <= element && element < start + range * (k + 1)) {
                     m_dict.Set(k, m_dict.Get(k) + 1);
                     current++;

@@ -63,6 +63,13 @@ public:
         throw invalid_argument("KeyError");
     }
 
+    TKey GetValueByKey(TElement value) {
+        for (int i = 0; i < m_size; i++) {
+            if (m_memory[i].GetValue() == value) return m_memory[i].GetKey();
+        }
+        throw invalid_argument("KeyError");
+    }
+
     bool ContainsKey(TKey key) {
         for (int i = 0; i < m_size; i++) {
             if (m_memory[i].GetKey() == key) return true;
@@ -119,7 +126,14 @@ public:
             file << m_memory[i].GetKey() << ": " << m_memory[i].GetValue() << "\n";
         }
         file.close();
+    }
 
+    TElement MaxValue() {
+        TElement max = m_memory[0].GetValue();
+        for (int i = 1; i < m_size; i++) {
+            if (m_memory[i].GetValue() > max) max = m_memory[i].GetValue();
+        }
+        return max;
     }
 
 };

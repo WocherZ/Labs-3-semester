@@ -1,26 +1,51 @@
 #include "Sequence/Sequence.hpp"
 #include "Sequence/ArraySequence.hpp"
-#include "Histogram/Dict.hpp"
-#include "Histogram/Histogram.hpp"
-#include "Paginator/Paginator.hpp"
+#include "Keyboard_Tests.hpp"
+#include "SubExpression/SubExpressionTests.hpp"
+#include "Paginator/PaginatorAutoTest.hpp"
 
 using namespace std;
 
 int main() {
-    auto dict = new Dict<int, int>(3, 6);
-    dict->Add(1, 2);
-    dict->Add(5, 6);
-    dict->Print();
-    dict->Remove(5);
-    dict->Print();
-    double m[6] = {1.0, 4.0, 7.0, 6.0, 5.5, 6.5};
-    auto arr = new ArraySequence<double>(m, 6);
-    auto hist = Histogram<int, double>(arr, 3.0);
-    hist.Print();
-    hist.SaveInFile("data.txt", true);
+    int choose1;
+    do {
+        cout << "1. Histogram " << endl;
+        cout << "2. Subexpressions " << endl;
+        cout << "3. Paginator " << endl;
+        cout << "4. Auto Expression test" << endl;
+        cout << "5. Auto Paginator test" << endl;
+        cout << "6. Exit" << endl;
+        cin >> choose1;
 
-    string test = string("ab tre");
-    Paginator<string, int> alpha = Paginator<string, int>(test, 10);
-    alpha.Print();
+        switch (choose1) {
+            case 1:
+                Histogram_test();
+                break;
+
+            case 2:
+                SubExpressions_test();
+                break;
+
+            case 3:
+                Paginator_test();
+                break;
+
+            case 4:
+                SubExpressionAutoTest();
+                break;
+
+            case 5:
+                PaginatorAutoTest();
+                break;
+
+            case 6:
+                cout << "Exit" << endl;
+                break;
+
+            default:
+                cout << "Enter a number from the list" << endl;
+        }
+        cout << endl;
+    } while (choose1 != 6);
     return 0;
 }
