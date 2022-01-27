@@ -32,7 +32,7 @@ public:
 
     // Operators
 
-    friend ostream& operator<< (ostream &out, const Pair &p) {
+    friend ostream& operator << (ostream &out, const Pair &p) {
         out << "(" << p.value_1 << ", " << p.value_2 << ")";
     }
 
@@ -154,6 +154,6 @@ public:
     }
 
     // Destructor
-    ~DischargedMatrix<Pair<TIndex, TIndex>, TValue>() = default;
+    ~DischargedMatrix<TIndex, TValue>() = default;
 
 };

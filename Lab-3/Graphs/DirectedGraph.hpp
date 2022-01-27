@@ -1,36 +1,35 @@
 #pragma once
-#include <list>
-#include <vector>
-#include <queue>
 
 #include "../Matrix/Matrix.hpp"
 
-
 using namespace std;
-
-
-// Инкапсулировать класс дуги в граф
-template<typename T>
-class Edge {
-public:
-    int start;
-    int finish;
-    T distance;
-
-    // Operators
-    friend ostream& operator<< (ostream &out, const Edge<T> &edge) {
-        out << "[ " << edge.start << " -> " << edge.finish << " : " << edge.distance << " ]";
-    }
-
-};
 
 // Ориентированный граф
 template<typename T> // T - type of distance
 class DirectedGraph {
 private:
-    DischargedMatrix<int, T> m_adjacency; // vertex - int type; T - distances
-    // list<int>* m_adjacency;
-    // T** m_distances;
+    template<typename TDistance>
+    class Edge {
+    public:
+        int start;
+        int finish;
+        TDistance distance;
+
+        // Constructor
+        Edge(int start_vertex, int finish_vertex, TDistance distance1) {
+            start = start_vertex;
+            finish = finish_vertex;
+            distance = distance1;
+        }
+
+        // Operators
+        friend ostream& operator<< (ostream &out, const Edge<T> &edge) {
+            out << "[ " << edge.start << " -> " << edge.finish << " : " << edge.distance << " ]";
+        }
+    };
+
+    DischargedMatrix<int, T> m_adjacency; // Матрица смежности
+    DischargedMatrix<int, T> m_distances; // Матрица расстояний
     int m_number; // number of vertices
 
     // vertices: int
@@ -38,26 +37,9 @@ private:
 
 public:
     // Constructors
-    DirectedGraph(int number_vertices, T** data) {
-        m_number = number_vertices;
-        m_adjacency = DischargedMatrix<int, T>(); // Init empty matrix
-
-        for (int i = 0; i < number_vertices; i++) {
-            for (int j = 0; j < number_vertices; j++) {
-                Pair<int, int> p = Pair<int, int>(i, j);
-                m_adjacency.Add(p, data[i][j]);
-            }
-        }
-    }
-
-    DirectedGraph(int number_vertices, ArraySequence<Edge<T>> edges) {
-        m_number = number_vertices;
-        m_adjacency = DischargedMatrix<int, T>(); // Init empty matrix
-
-        for (int i = 0; i < edges.GetSize(); i++) {
-            Pair<int, int> p = Pair<int, int>(edges[i].start, edges[i].finish);
-            m_adjacency.Add(p, edges[i].distance);
-        }
+    DirectedGraph() {
+        m_adjacency = DischargedMatrix<int, T>();
+        m_number = 0;
     }
 
     // Operations
@@ -65,6 +47,18 @@ public:
     // Печать словаря
     void PrintDict() {
         m_adjacency.PrintDict();
+    }
+
+    // Печать всех рёбер
+    void PrintEdges() {
+        ArraySequence<Pair<int, int>> keys = ArraySequence<Pair<int, int>>();
+        m_adjacency.KEYS(&keys);
+        ArraySequence<T> values = ArraySequence<T>();
+        m_adjacency.VALUES(&values);
+        for (int i = 0; i < keys.GetSize(); i++) {
+            Edge<T> edge = Edge<T>(keys[i].GetFirst(), keys[i].GetSecond(), values[i]);
+            cout << edge << endl;
+        }
     }
 
     // Количество вершин
@@ -77,7 +71,6 @@ public:
         Pair<int, int> p = Pair<int, int>(first, second);
         m_adjacency.Add(p, distance);
 
-        //m_adjacency[first].push_back(second);
     }
 
     // Получения списка смежных вершин
@@ -85,69 +78,25 @@ public:
         m_adjacency.ContainsFirst(index, result_sequence);
     }
 
-//    void BFS(int s) {
-//        bool *visited = new bool[m_number];
-//        for (int i = 0; i < m_number; i++) visited[i] = false;
-//        visited[s] = true;
-//
-//        queue<int> queue;
-//        queue.push(s);
-//
-//        list<int>::iterator i;
-//
-//        while (!queue.empty()) {
-//            s = queue.front();
-//            cout << s << " ";
-//            queue.pop();
-//
-//            for (i = m_adjacency[s].begin(); i != m_adjacency[s].end(); ++i) {
-//                if (!visited[*i]) {
-//                    visited[*i] = true;
-//                    queue.push(*i);
-//                }
-//            }
-//        }
-//    }
-//
-//    void DFS_rec(int v, bool visited[]) {
-//        visited[v] = true;
-//        cout << v << " ";
-//
-//        list<int>::iterator i;
-//        for (i = m_adjacency[v].begin(); i != m_adjacency[v].end(); ++i) {
-//            if (!visited[*i]) DFS_rec(*i, visited);
-//        }
-//    }
-//
-//    void DFS(int v) {
-//        bool *visited = new bool[m_number];
-//        for (int i = 0; i < m_number; i++) visited[i] = false;
-//        DFS_rec(v, visited);
-//    }
+    // Алгоритм Флойда-Уоршелла - заполнение матрицы расстояний
+    void FloydWarshall(int number_vertex) {
+        m_number = number_vertex;
 
-    void FloydWarshall() {  // time - O(n^3); memory - O(n^2)
-//        int** dist = new int*[m_number];
-//        for (int i = 0; i < m_number; i++) {
-//            dist[i] = new int[m_number];
-//        }
-//        for (int i = 0; i < m_number; i++) {
-//            for (int j = 0; j < m_number; j++) {
-//                dist[i][j] = m_distances[i][j];
-//                parent[i][j] = i;
-//            }
-//        }
-//
-//        for (int k = 0; k < m_number; k++) {
-//            for (int i = 0; i < m_number; i++) {
-//                for (int j = 0; j < m_number; j++) {
-//                    if (dist[i][k] + dist[k][j] < dist[i][j]) {
-//                        dist[i][j] = dist[i][k] + dist[k][j];
-//                        parent[i][j] = parent[k][j];
-//                    }
-//                }
-//            }
-//        }
-//        return dist;
+        ArraySequence<Pair<int, int>> keys = ArraySequence<Pair<int, int>>();
+        m_adjacency.KEYS(&keys);
+        ArraySequence<T> values = ArraySequence<T>();
+        m_adjacency.VALUES(&values);
+        for (int i = 0; i < keys.GetSize(); i++) {
+            Pair<int, int> p = Pair<int, int>(keys[i].GetFirst(), keys[i].GetSecond());
+            m_distances.Add(p, values[i]);
+        }
+        // Скопировали матрицу смежности в distances
+        m_distances.PrintDict();
+
+        for (int y = 0; y < m_number; y++) {
+            Pair<int, int> p = Pair<int, int>(y, y);
+            m_distances.AddOrSet(p, m_adjacency.Get(p));
+        }
 
         for (int k = 0; k < m_number; k++) {
             for (int i = 0; i < m_number; i++) {
@@ -155,17 +104,37 @@ public:
                     Pair<int, int> ik = Pair<int, int>(i, k);
                     Pair<int, int> kj = Pair<int, int>(k, j);
                     Pair<int, int> ij = Pair<int, int>(i, j);
-                    T distance_ik = m_adjacency.Get(ik);
-                    T distance_kj = m_adjacency.Get(kj);
-                    T distance_ij = m_adjacency.Get(ij);
-                    if (distance_ik + distance_kj < distance_ij) {
-                        m_adjacency.AddOrSet(ij, distance_ik + distance_kj);
+                    T distance_ik = m_distances.Get(ik);
+                    T distance_kj = m_distances.Get(kj);
+                    T distance_ij = m_distances.Get(ij);
+                    if (distance_ik && distance_kj && i != j) {
+                        if (distance_ik + distance_kj < distance_ij || distance_ij == T()) {
+                            m_distances.AddOrSet(ij, distance_ik + distance_kj);
+                        }
                     }
 
                 }
             }
         }
+
+        m_distances.PrintDict();
     }
+
+
+    void PrintMatrixDistances(int number_vertex) {
+        for (int i = 0; i < number_vertex; i++) {
+            for (int j = 0; j < number_vertex; j++) {
+                Pair<int, int> p = Pair<int, int>(i, j);
+                if (m_distances.ContainsIndexes(p)) {
+                    cout << m_distances.Get(p) << " ";
+                } else {
+                    cout << "inf ";
+                }
+            }
+            cout << endl;
+        }
+    }
+
 
 };
 

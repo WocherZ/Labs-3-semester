@@ -1,110 +1,65 @@
 #include <iostream>
 
-#include "Graphs/Graph.hpp"
-#include "Graphs/Test.hpp"
-#include "Graphs/HelperGraph.hpp"
 
-#include "Matrix/Matrix.hpp"
+#include "Graphs/TestGraph.hpp"
+#include "Graphs/TestDirectedGraph.hpp"
 
 int main() {
     int choose = 0;
+    DirectedGraph<int>* directed_graph;
+    Graph<int>* graph;
+    int graph_vertex;
+    int directed_graph_vertex;
     do {
-        cout << "Test:" << endl;
-        cout << "1. Hamilton path" << endl << "2. BFS and DFS" << endl << "3. Floyd Warshall" << endl << "4. Exit" << endl;
+        cout << "Operations" << endl;
+        cout << "Graph:" << endl;
+        cout << "1. Find Hamilton paths" << endl << "2. Print matrix adjacency" << endl;
+        cout << "Directed graph:" << endl;
+        cout << "3. Floyd Warshall" << endl << "4. Print matrix distances" << endl;
+        cout << "5. Exit" << endl;
         cin >> choose;
 
         switch (choose) {
             case 1: {
-                int vertex, edges;
                 cout << "Input vertexes number" << endl;
-                cin >> vertex;
-                cout << "Input edges number" << endl;
-                cin >> edges;
-                ArraySequence<Edge<int>> test_edges = ArraySequence<Edge<int>>();
+                cin >> graph_vertex;
 
-                MakeEdge<int>(edges, &test_edges);
-                Graph<int> graph(test_edges);
-                cout << "graph created" << endl;
-
-                ArraySequence<int> path = ArraySequence<int>();
-                int start_vertex = 0; // Начальная вершина
-                path.Append(start_vertex);
-
-                ArraySequence<bool> visited = ArraySequence<bool>();
-                bool def = false;
-                for (int i = 0; i < vertex; i++) {
-                    visited.Append(def);
-                }
-                visited[start_vertex] = true;
-
-                cout << "arrays are ready" << endl;
-
-
-                cout << "Hamiltonian paths:" << endl;
-                HamiltonianPaths(graph, start_vertex, visited, &path, vertex);
-                if (path.GetSize() == 1) cout << "Graph has not hamiltonian paths" << endl;
+                graph = CreateGraph();
+                graph->PrintEdges();
+                int start_vertex;
+                cout << "Input start vertex:" << endl;
+                cin >> start_vertex;
+                graph->FindHamiltonianPaths(start_vertex, graph_vertex);
                 break;
             }
-            case 2: {
-                int vertex, edges, bfsing;
-                cout << "Input vertexes number" << endl;
-                cin >> vertex;
-                cout << "Input edges number" << endl;
-                cin >> edges;
-//
-//                vector<Edge<int>> test_edges = MakeEdge<int>(edges);
-//                DirectedGraph<int> graph(vertex, test_edges);
-//                cout << "Input vertex for dfs and bfs" << endl;
-//                cin >> bfsing;
-//
-//                cout << "Depth first search starting from vertex " << bfsing << endl;
-//                graph.DFS(bfsing);
-//                cout << endl;
-//
-//                cout << "Breadth first search starting from vertex " << bfsing << endl;
-//                graph.BFS(bfsing);
-//                cout << endl;
 
+            case 2: {
+                if (graph_vertex > 0) {
+                    graph->PrintMatrixAdjacency(graph_vertex);
+                } else {
+                    cout << "Graph wasn't created" << endl;
+                }
                 break;
             }
 
             case 3: {
-                int vertex, edges;
                 cout << "Input vertexes number" << endl;
-                cin >> vertex;
-                cout << "Input edges number" << endl;
-                cin >> edges;
-
-                ArraySequence<Edge<int>> test_edges = ArraySequence<Edge<int>>();
-
-                MakeEdge<int>(edges, &test_edges);
-                DirectedGraph<int> graph = DirectedGraph<int>(vertex, test_edges);
-
-                graph.PrintDict();
-                cout << endl;
-                graph.FloydWarshall();
-
-                graph.PrintDict();
-
-//                int** help = new int*[vertex];
-//                for (int i = 0; i < vertex; i++) {
-//                    help[i] = new int[vertex];
-//                }
-//                int fw_start, fw_finish;
-//
-//                cout << "Floyd Warshall" << endl;
-//                cout << "Input start vertex" << endl;
-//                cin >> fw_start;
-//                cout << "Input finish vertex" << endl;
-//                cin >> fw_finish;
-//
-//                // PrintSolution(graph.FloydWarshall(help), graph.GetNumber());
-//
-//                // cout << "Print path from " << fw_start << " to " << fw_finish << " with length " << graph.FloydWarshall(help)[fw_start][fw_finish] << ": " << endl;
-//                PrintPath(fw_start, fw_finish, help);
+                cin >> directed_graph_vertex;
+                directed_graph = CreateDirectedGraph();
+                directed_graph->FloydWarshall(directed_graph_vertex);
+                break;
             }
 
             case 4: {
+                if (directed_graph_vertex > 0) {
+                    directed_graph->PrintMatrixDistances(directed_graph_vertex);
+                } else {
+                    cout << "Directed graph wasn't created" << endl;
+                }
+                break;
+            }
+
+            case 5: {
                 cout << "Exit" << endl;
                 break;
             }
@@ -112,6 +67,6 @@ int main() {
             default:
                 cout << "Enter a number from the list" << endl;
         }
-    } while (choose != 4);
+    } while (choose != 5);
     return 0;
 }

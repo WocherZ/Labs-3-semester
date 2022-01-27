@@ -173,7 +173,7 @@ public:
     }
 
     // Все значения записываются в sequence
-    void VALUES(ArraySequence<TKey>* sequence) {
+    void VALUES(ArraySequence<TElement>* sequence) {
         if (sequence->GetSize() != 0) {
             throw invalid_argument("Not valid sequence; Size must be 0");
         } else {

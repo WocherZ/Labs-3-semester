@@ -2,12 +2,14 @@
 
 #include "DirectedGraph.hpp"
 
-template<typename T>
-void MakeEdge(int edge_number, Sequence<Edge<int>>* edges) { // Create edges
-    for (int i = 0; i < edge_number; i++) {
-        Edge<T> m;
-        int start, finish, distance;
+DirectedGraph<int>* CreateDirectedGraph() {
+    auto* graph = new DirectedGraph<int>();
+    int edges_number;
+    cout << "Input edges number for create graph" << endl;
+    cin >> edges_number;
 
+    for (int i = 1; i <= edges_number; i++) {
+        int start, finish, distance;
         cout << "Enter information about edge " << i << endl;
         cout << "Enter start vertex" << endl;
         cin >> start;
@@ -18,10 +20,8 @@ void MakeEdge(int edge_number, Sequence<Edge<int>>* edges) { // Create edges
         cout << "Enter length of edge" << endl;
         cin >> distance;
 
-        m.start = start;
-        m.finish = finish;
-        m.distance = distance;
-
-        edges->Append(m);
+        graph->AddEdge(start, finish, distance);
     }
+    cout << "Directed graph was created" << endl;
+    return graph;
 }
